@@ -1,5 +1,6 @@
 import React, {useRef} from "react";
 import {ICard} from "../../../types/card";
+import {firstCursiveLetter, timeConverter} from "../../../utils";
 
 interface IMainCardProps {
     card: ICard
@@ -11,7 +12,6 @@ export function TheMainCard({card, getClosedCards}: IMainCardProps): JSX.Element
     const closeIcon = useRef<HTMLImageElement>(null);
 
     function getCardId() {
-        // getClosedCards(Number(closeIcon.current!.id))
         getClosedCards(card.id)
     }
 
@@ -23,10 +23,13 @@ export function TheMainCard({card, getClosedCards}: IMainCardProps): JSX.Element
             />
             <ul className="main-cards__description">
                 <li className="main-cards__category">
-                    Категория: {card.category}
+                    Категория: {firstCursiveLetter(card.category)}
                 </li>
                 <li className="main-cards__date">
-                    Дата: {card.timestamp}
+                    Дата: {timeConverter(card.timestamp)}
+                </li>
+                <li className="main-cards__size">
+                    Размер файла: { Math.round(Number(card.filesize) / 1024) } КБ
                 </li>
             </ul>
             <img ref={closeIcon}

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {ICard} from "../../../types/card";
+import {firstCursiveLetter, timeConverter} from "../../../utils";
 
 interface IMainTreeProps {
     card: ICard,
@@ -37,17 +38,17 @@ export function TheMainTree({card}: IMainTreeProps): JSX.Element {
                             </li>
                             <li>
                                 <details>
-                                    <summary>Размер файла: КБ</summary>
+                                    <summary>Размер файла: { Math.round(Number(card.filesize) / 1024) } КБ</summary>
                                 </details>
                             </li>
                             <li>
                                 <details>
-                                    <summary>Дата:</summary>
+                                    <summary>Дата: {timeConverter(card.timestamp)}</summary>
                                 </details>
                             </li>
                             <li>
                                 <details>
-                                    <summary>Категория:</summary>
+                                    <summary>Категория: {firstCursiveLetter(card.category)}</summary>
                                 </details>
                             </li>
                         </ul>
