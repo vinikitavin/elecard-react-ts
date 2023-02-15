@@ -10,7 +10,7 @@ import {ICard} from "../../../types/card";
 
 export function TheMain(): JSX.Element {
     const dispatch = useAppDispatch()
-    const {error, loading, cards} = useAppSelector((state) => state.cards)
+    const {error, loading, cards, tree} = useAppSelector((state) => state.cards)
 
     const [changeContent, setChangeContent] = useState('cards')
 
@@ -27,7 +27,7 @@ export function TheMain(): JSX.Element {
         const result = cardsCopy.filter((card: ICard) => {
             return card.id !== closedCard
         })
-        dispatch(cardsSlice.actions.fetchSuccess(result))
+        dispatch(cardsSlice.actions.fetchSuccessCards(result))
         localStorage.setItem('cards', JSON.stringify(result))
     }
 
@@ -40,7 +40,7 @@ export function TheMain(): JSX.Element {
                     ? 1
                     : -1
             )
-            dispatch(cardsSlice.actions.fetchSuccess(result))
+            dispatch(cardsSlice.actions.fetchSuccessCards(result))
         } else {
             const result = cardsCopy.sort((a: any, b: any) =>
                 a[value]
@@ -48,13 +48,13 @@ export function TheMain(): JSX.Element {
                     ? 1
                     : -1
             )
-            dispatch(cardsSlice.actions.fetchSuccess(result))
+            dispatch(cardsSlice.actions.fetchSuccessCards(result))
         }
     }
 
     function resetCardsArray() {
         localStorage.removeItem('cards')
-        // location.reload()
+        dispatch(fetchCards())
     }
 
     return (
@@ -75,8 +75,7 @@ export function TheMain(): JSX.Element {
                 <div className="main__spinner spinner">
                     <img alt="spinner" src="spinner.gif"/>
                 </div>
-            ) : null}
-            {!error ? (
+            ) : !error ? (
                 <div className="main__content content">
                     {changeContent === 'cards' ? (
                         <div className="content__card">
@@ -90,7 +89,7 @@ export function TheMain(): JSX.Element {
                     ) : (
                         <div className="content__tree">
                             {
-                                cards.map((card: ICard) => <TheMainTree key={card.id}
+                                tree.map((card: ICard) => <TheMainTree key={card.id}
                                                                         card={card}
                                 />)
                             }

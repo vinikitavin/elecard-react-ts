@@ -18,7 +18,10 @@ export function fetchCards() {
                         category: card.category
                     }
                 })
-                dispatch(cardsSlice.actions.fetchSuccess(
+                dispatch(cardsSlice.actions.fetchSuccessCards(
+                    responseData
+                ))
+                dispatch(cardsSlice.actions.fetchSuccessTree(
                     responseData
                 ))
             } catch (e) {
@@ -26,7 +29,7 @@ export function fetchCards() {
             }
         } else {
             const result = JSON.parse(localStorage.getItem('cards')!)
-            dispatch(cardsSlice.actions.fetchSuccess(result))
+            dispatch(cardsSlice.actions.fetchSuccessCards(result))
         }
     }
 }

@@ -4,13 +4,15 @@ import {ICard} from "../../types/card";
 export interface IState {
     loading: boolean,
     error: string,
-    cards: ICard[]
+    cards: ICard[],
+    tree: ICard[]
 }
 
 const initialState: IState = {
     loading: false,
     error: '',
-    cards: []
+    cards: [],
+    tree: []
 }
 
 export const cardsSlice = createSlice({
@@ -20,9 +22,12 @@ export const cardsSlice = createSlice({
         fetching(state: IState) {
             state.loading = true
         },
-        fetchSuccess(state: IState, action: PayloadAction<ICard[]>) {
+        fetchSuccessCards(state: IState, action: PayloadAction<ICard[]>) {
             state.loading = false
             state.cards = action.payload
+        },
+        fetchSuccessTree(state: IState, action: PayloadAction<ICard[]>) {
+            state.tree = action.payload
         },
         fetchError(state: IState, action: PayloadAction<Error>) {
             state.loading = false
