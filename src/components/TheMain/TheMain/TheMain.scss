@@ -1,0 +1,79 @@
+@import '../../../assets/scss/colors';
+
+.main {
+  flex: 1 1 auto;
+
+  &__form {
+    margin-top: 90px;
+  }
+
+  &__form,
+  &__sort {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  &__sort {
+    padding: 10px 0 0 0;
+  }
+
+  &__reset {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__reset-btn {
+    width: 138px;
+    border: 1px solid $black;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+
+  &__reset-btn:disabled {
+    background: $black;
+    color: $white;
+    opacity: 0.5;
+  }
+
+  &__spinner {
+    display: flex;
+    justify-content: center;
+    padding: 130px 0;
+  }
+
+  &__content {
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+  }
+}
+
+.radio {
+  &__wrapper {
+    margin-right: 10px;
+  }
+}
+
+.content {
+  &__tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 90px;
+  }
+
+  &__card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

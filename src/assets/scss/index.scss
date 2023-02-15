@@ -1,0 +1,15 @@
+@import '_colors.scss';
+@import '_reset.scss';
+
+@import '../../components/TheHeader/TheHeader';
+@import '../../components/TheFooter/TheFooter';
+@import '../../components/TheMain/TheMain/TheMain';
+@import '../../components/TheMain/TheMainCard/TheMainCard';
+@import '../../components/TheMain/TheMainTree/TheMainTree';
+@import '../../components/TheChangeContent/TheChangeContent';
+@import '../../components/TheSort/TheSort';
+
+
+html, body{
+  height: 100%;
+}
