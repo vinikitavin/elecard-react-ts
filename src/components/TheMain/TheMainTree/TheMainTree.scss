@@ -1,16 +1,22 @@
 @import '../../../assets/scss/_colors.scss';
 
 .main-tree {
-  &__tree-padding li {
-    display: block;
-    position: relative;
-    padding-left: calc(2 * var(--spacing) - var(--radius) - 2px);
-  }
-
+  &__tree-summaries,
   &__tree-summaries summary {
     display: flex;
     cursor: pointer;
-    align-items: center;
+  }
+
+  &__plus {
+    width: 15px;
+    height: 15px;
+    margin: 5px 5px 0 0;
+  }
+
+  &__minus {
+    width: 15px;
+    height: 15px;
+    margin: 5px 5px 0 0;
   }
 
   &__header {
