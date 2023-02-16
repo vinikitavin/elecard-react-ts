@@ -14,16 +14,39 @@
   }
 
   &__header {
-    width: 420px;
-    border: 0.5px solid $blue;
-    background: $light-blue;
-    padding-left: 10px;
-    margin: 1px;
+    cursor: pointer;
   }
 
-  &__header:hover {
-    background: $blue;
-    color: $white;
+  &__list li {
+    position: relative;
+    padding-top: 20px;
+    margin-left: 45px;
+  }
+
+  &__list li::before {
+    content: '';
+    border-left: 3px solid $black;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: -60px;
+  }
+
+  &__list li::after {
+    content: '';
+    border-bottom: 3px solid $black;
+    position: absolute;
+    width: 55px;
+    top: 30px;
+    left: -60px;
+  }
+
+  &__list li:last-child::before {
+    height: 30px;
+  }
+
+  &__list li:last-child {
+    display: flex;
   }
 
   &__img-head {
@@ -31,8 +54,8 @@
   }
 
   &__img {
-    width: 25px;
-    height: 15px;
+    width: 200px;
+    cursor: pointer;
   }
 }
 

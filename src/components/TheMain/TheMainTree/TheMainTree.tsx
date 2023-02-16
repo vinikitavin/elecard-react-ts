@@ -19,42 +19,32 @@ export function TheMainTree({card}: IMainTreeProps): JSX.Element {
 
     return (
         <div className="main-tree">
-            <ul className="main-tree__tree-padding main-tree__tree-summaries">
-                <li>
+            <div className="main-tree__tree-padding main-tree__tree-summaries">
+                <div>
                     <details>
                         <summary className="main-tree__header">Карточка №{card.id}</summary>
-                        <ul>
+                        <ul className="main-tree__list">
                             <li>
-                                <details>
-                                    <summary className="main-tree__img-wrapper">
-                                        <p className="main-tree__img-head">Картинка:</p>
-                                        <img alt="tree-img"
-                                             className="main-tree__img"
-                                             src={`http://contest.elecard.ru/frontend_data/${card.image}`}
-                                             onClick={openModal}
-                                        />
-                                    </summary>
-                                </details>
+                                Размер файла: { Math.round(Number(card.filesize) / 1024) } КБ
                             </li>
                             <li>
-                                <details>
-                                    <summary>Размер файла: { Math.round(Number(card.filesize) / 1024) } КБ</summary>
-                                </details>
+                                Дата: {timeConverter(card.timestamp)}
                             </li>
                             <li>
-                                <details>
-                                    <summary>Дата: {timeConverter(card.timestamp)}</summary>
-                                </details>
+                                Категория: {firstCursiveLetter(card.category)}
                             </li>
                             <li>
-                                <details>
-                                    <summary>Категория: {firstCursiveLetter(card.category)}</summary>
-                                </details>
+                                <p className="main-tree__img-head">Картинка:</p>
+                                <img alt="tree-img"
+                                     className="main-tree__img"
+                                     src={`http://contest.elecard.ru/frontend_data/${card.image}`}
+                                     onClick={openModal}
+                                />
                             </li>
                         </ul>
                     </details>
-                </li>
-            </ul>
+                </div>
+            </div>
             {isModal ? (
                 <div className="modal__mask">
                     <div className="modal__wrapper">
