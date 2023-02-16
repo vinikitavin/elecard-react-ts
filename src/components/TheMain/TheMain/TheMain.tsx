@@ -14,6 +14,10 @@ export function TheMain(): JSX.Element {
 
     const [changeContent, setChangeContent] = useState('cards')
 
+    const [pageNumber, setPageNumber] = useState(0)
+
+    const [isDisabledReset, setIsDisabledReset] = useState(true)
+
     const handleChangeContent = (change: string) => {
         setChangeContent(change)
     }
@@ -21,6 +25,14 @@ export function TheMain(): JSX.Element {
     useEffect(() => {
         dispatch(fetchCards())
     }, [dispatch])
+
+    const isLS = localStorage.getItem("cards")
+
+    useEffect(() => {
+        isLS
+            ? setIsDisabledReset(false)
+            : setIsDisabledReset(true)
+    }, [isLS]);
 
     function getClosedCards(closedCard: number) {
         let cardsCopy = Object.assign([], cards);
@@ -57,6 +69,14 @@ export function TheMain(): JSX.Element {
         dispatch(fetchCards())
     }
 
+    const cardsPerPage: number = 6
+    const start: number = pageNumber * cardsPerPage
+    const end: number = start + cardsPerPage
+    const paginatedCountries = cards.slice(start, end)
+
+    const nextPage = () => setPageNumber(prev => prev + 1)
+    const prevPage = () => setPageNumber(prev => prev - 1)
+
     return (
         <main className="main">
             <div className="main__form radio">
@@ -64,13 +84,18 @@ export function TheMain(): JSX.Element {
                     <TheChangeContent onChange={handleChangeContent}/>
                 </div>
             </div>
-            <div className="main__sort">
-                <TheSort getSortedCardsArr={getSortedCardsArr}/>
-            </div>
-            <div className="main__reset">
-                <button className="main__reset-btn" onClick={resetCardsArray}>Сбросить
-                </button>
-            </div>
+            {changeContent === 'cards' ? (
+                <>
+                    <div className="main__sort">
+                        <TheSort getSortedCardsArr={getSortedCardsArr}/>
+                    </div>
+                    <div className="main__reset">
+                        <button disabled={isDisabledReset} className="main__reset-btn"
+                                onClick={resetCardsArray}>Сбросить
+                        </button>
+                    </div>
+                </>
+            ) : null}
             {loading ? (
                 <div className="main__spinner spinner">
                     <img alt="spinner" src="spinner.gif"/>
@@ -80,9 +105,9 @@ export function TheMain(): JSX.Element {
                     {changeContent === 'cards' ? (
                         <div className="content__card">
                             {
-                                cards.map((card: ICard) => <TheMainCard key={card.id}
-                                                                        card={card}
-                                                                        getClosedCards={getClosedCards}
+                                paginatedCountries.map((card: ICard) => <TheMainCard key={card.id}
+                                                                                     card={card}
+                                                                                     getClosedCards={getClosedCards}
                                 />)
                             }
                         </div>
@@ -90,13 +115,29 @@ export function TheMain(): JSX.Element {
                         <div className="content__tree">
                             {
                                 tree.map((card: ICard) => <TheMainTree key={card.id}
-                                                                        card={card}
+                                                                       card={card}
                                 />)
                             }
                         </div>
                     )}
                 </div>
             ) : <div>Ошибка при получении данных</div>}
+            {changeContent === 'cards' ? (
+                <div className="main__pagination pagination">
+                    <button
+                        disabled={pageNumber === 0}
+                        onClick={prevPage}
+                        className="pagination__prev-btn btn"
+                    >Назад
+                    </button>
+                    <button
+                        disabled={pageNumber >= (cards.length / cardsPerPage) - 1}
+                        onClick={nextPage}
+                        className="pagination__next-btn btn"
+                    >Вперед
+                    </button>
+                </div>
+            ) : null}
         </main>
     )
 }

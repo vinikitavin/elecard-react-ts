@@ -6,6 +6,7 @@ export function TheSort({getSortedCardsArr}: {getSortedCardsArr: Function}): JSX
 
     function changeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
         setValue(event.target.value)
+        setIsOpen(!isOpen)
     }
 
     function handleOpen(): void {

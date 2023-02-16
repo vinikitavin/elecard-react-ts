@@ -33,7 +33,18 @@
     transition: 0.4s;
   }
 
+  &__reset-btn:hover {
+    border-color: $blue;
+    background: $blue;
+    color: $white;
+  }
+
+  &__reset-btn:focus {
+    border: 1px solid $black;
+  }
+
   &__reset-btn:disabled {
+    border: 1px solid $black;
     background: $black;
     color: $white;
     opacity: 0.5;
@@ -75,5 +86,38 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+  }
+}
+
+.pagination {
+  &__prev-btn {
+    margin-right: 10px;
+  }
+}
+.btn {
+  border: 0.5px solid $blue;
+  border-radius: 5px;
+  background: $light-blue;
+  color: $black;
+  padding: 5px 20px;
+  transition: 0.6s;
+
+  &:focus {
+    border: 0.5px solid $blue;
+  }
+
+  &:hover {
+    background: $blue;
+    color: $white;
+  }
+
+  &:disabled {
+    border: 0.5px solid $blue;
+    opacity: 0.5;
+  }
+
+  &:disabled:hover {
+    background: $light-blue;
+    color: $black;
   }
 }
