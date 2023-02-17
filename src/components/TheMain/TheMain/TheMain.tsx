@@ -8,6 +8,8 @@ import {useAppDispatch, useAppSelector} from "../../../hook/redux";
 import {cardsSlice} from "../../../store/slices/cardsSlice";
 import {ICard} from "../../../types/card";
 
+const closedCards: Array<number> = []
+
 export function TheMain(): JSX.Element {
     const dispatch = useAppDispatch()
     const {error, loading, cards, tree} = useAppSelector((state) => state.cards)
@@ -26,7 +28,7 @@ export function TheMain(): JSX.Element {
         dispatch(fetchCards())
     }, [dispatch])
 
-    const isLS = localStorage.getItem("cards")
+    const isLS = localStorage.getItem("closedCards")
 
     useEffect(() => {
         isLS
@@ -39,8 +41,9 @@ export function TheMain(): JSX.Element {
         const result = cardsCopy.filter((card: ICard) => {
             return card.id !== closedCard
         })
+        closedCards.push(closedCard)
         dispatch(cardsSlice.actions.fetchSuccessCards(result))
-        localStorage.setItem('cards', JSON.stringify(result))
+        localStorage.setItem('closedCards', JSON.stringify(closedCards))
     }
 
     function getSortedCardsArr(value: string) {
@@ -65,7 +68,7 @@ export function TheMain(): JSX.Element {
     }
 
     function resetCardsArray() {
-        localStorage.removeItem('cards')
+        localStorage.removeItem('closedCards')
         dispatch(fetchCards())
     }
 

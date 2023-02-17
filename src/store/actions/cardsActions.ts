@@ -17,7 +17,7 @@ export function fetchCards() {
                     category: card.category
                 }
             })
-            if (!localStorage.getItem('cards')) {
+            if (!localStorage.getItem('closedCards')) {
                 dispatch(cardsSlice.actions.fetchSuccessCards(
                     responseData
                 ))
@@ -25,8 +25,11 @@ export function fetchCards() {
                     responseData
                 ))
             } else {
-                const result = JSON.parse(localStorage.getItem('cards')!)
-                dispatch(cardsSlice.actions.fetchSuccessCards(result))
+                const closedCards = JSON.parse(localStorage.getItem('closedCards')!)
+                const newArray: ICard[] = responseData.filter((card: ICard) => {
+                    return !closedCards.includes(card.id)
+                })
+                dispatch(cardsSlice.actions.fetchSuccessCards(newArray))
                 dispatch(cardsSlice.actions.fetchSuccessTree(
                     responseData
                 ))
