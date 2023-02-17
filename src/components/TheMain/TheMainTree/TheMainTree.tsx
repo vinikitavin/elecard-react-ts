@@ -19,7 +19,8 @@ export function TheMainTree({card}: IMainTreeProps): JSX.Element {
     }
 
     function openList() {
-        const summary: HTMLElement | null = document.getElementById('summary')
+        const id: string = `${card.id}`
+        const summary: HTMLElement | null = document.getElementById(id)
         setIsOpenedList(!isOpenedList)
         summary!.click()
     }
@@ -34,16 +35,19 @@ export function TheMainTree({card}: IMainTreeProps): JSX.Element {
                         <img onClick={openList} alt="plus-icon" className="main-tree__plus" src="plus.svg"/>
                     )}
                 <details>
-                    <summary onClick={() => setIsOpenedList(!isOpenedList)} id="summary" className="main-tree__header">Карточка №{card.id}</summary>
+                    <summary onClick={() => setIsOpenedList(!isOpenedList)} id={String(card.id)} className="main-tree__header">Карточка №{card.id}</summary>
                     <ul className="main-tree__list">
+                        <li>
+                            Категория: {firstCursiveLetter(card.category)}
+                        </li>
+                        <li>
+                            Имя файла: {card.image.split('/')[1]}
+                        </li>
                         <li>
                             Размер файла: {Math.round(Number(card.filesize) / 1024)} КБ
                         </li>
                         <li>
                             Дата: {timeConverter(card.timestamp)}
-                        </li>
-                        <li>
-                            Категория: {firstCursiveLetter(card.category)}
                         </li>
                         <li>
                             <p className="main-tree__img-head">Картинка:</p>

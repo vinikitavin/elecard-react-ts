@@ -22,14 +22,17 @@ export function TheMainCard({card, getClosedCards}: IMainCardProps): JSX.Element
                  src={`http://contest.elecard.ru/frontend_data/${card.image}`}
             />
             <ul className="main-cards__description">
-                <li className="main-cards__category">
-                    Категория: {firstCursiveLetter(card.category)}
-                </li>
                 <li className="main-cards__date">
                     Дата: {timeConverter(card.timestamp)}
                 </li>
+                <li className="main-cards__category">
+                    Категория: {firstCursiveLetter(card.category)}
+                </li>
                 <li className="main-cards__size">
                     Размер файла: { Math.round(Number(card.filesize) / 1024) } КБ
+                </li>
+                <li className="main-cards__name">
+                    Имя файла: {card.image.split('/')[1]}
                 </li>
             </ul>
             <img ref={closeIcon}
